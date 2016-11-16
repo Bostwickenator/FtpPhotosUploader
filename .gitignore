@@ -46,3 +46,4 @@ Temporary Items
 app/build/*
 build/*
 local.properties
+.idea/workspace.xml
