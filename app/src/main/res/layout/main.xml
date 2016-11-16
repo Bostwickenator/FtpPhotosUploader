@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/boxBackground"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Upload Status:"
+
+            android:id="@+id/textView2" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/statusNotStarted"
+android:layout_marginLeft="6dp"            android:id="@+id/textViewUploadStatus"
+            android:layout_alignTop="@+id/textView2"
+            android:layout_toRightOf="@+id/textView2"
+            android:layout_toEndOf="@+id/textView2" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:id="@+id/progressBarUploadProgress"
+            android:indeterminate="false"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            android:layout_below="@+id/textView2"
+            android:layout_alignLeft="@+id/textView2"
+            android:layout_alignStart="@+id/textView2"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:id="@+id/progressBarSpin"
+            android:indeterminateOnly="true"
+            android:indeterminate="true"
+            android:layout_alignTop="@+id/textView2"
+            android:layout_alignBottom="@id/textView2"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/autoPowerOffHint"
+            android:id="@+id/textView3"
+            android:layout_below="@+id/progressBarUploadProgress"
+   />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/boxBackground"
+        android:padding="8dp"
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Photos ready to upload"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/textViewLabelToUpload" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="28dp"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/textViewPhotosToUploadCount"
+                android:layout_below="@+id/textViewLabelToUpload"
+                />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Start Upload"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/buttonUploadPhotos"
+                android:layout_below="@+id/textViewPhotosToUploadCount"
+        />
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+            android:layout_weight="1">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Settings"
+                    android:id="@+id/buttonSettings"
+                    android:layout_below="@+id/textViewUploadedCount"
+                    android:layout_centerHorizontal="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Previously Uploaded"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/textView" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="28dp"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/textViewUploadedCount"
+                    android:layout_below="@+id/textView" />
+
+            </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

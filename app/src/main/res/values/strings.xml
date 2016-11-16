@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">FTP Uploader</string>
+    <string name="mainTitle">FTP Uploader</string>
+    <string name="wifiStateDefault">WiFi Initializing</string>
+    <string name="buttonWifiSettings">WiFi Settings</string>
+    <string name="autoPowerOffHint">Once the upload is complete the device will automatically power off</string>
+    <string name="statusUploading">Uploading</string>
+    <string name="statusComplete">Complete</string>
+    <string name="statusNotStarted">Not Started</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="connecting">Connecting</string>
+    <string name="connectionStateConnecting">Connecting</string>
+    <string name="connectionStateWifiEnabled">WiFi Enabled</string>
+    <string name="connectionStateWifiDisabled">WiFi Disabled</string>
+    <string name="connectionStateConnectedTo">Connected To</string>
+    <string name="connectionStateWifiScanning">Scanning</string>
+</resources>
