@@ -11,14 +11,14 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Created by Alex on 2016-05-28.
+ * A simple store to record file lists in. Deals with persistence internally.
  */
 public class UploadRecordDatabase {
 
     Set<File> files = new HashSet<>();
 
     private static UploadRecordDatabase theUploadRecordDatabase;
-private static String FILE_NAME = "DB.TXT";
+    private static String FILE_NAME = "DB.TXT";
 
     private UploadRecordDatabase() {
         loadFileList();
@@ -32,6 +32,10 @@ private static String FILE_NAME = "DB.TXT";
     }
 
 
+    /**
+     * Get the number of records in the database
+     * @return
+     */
     public int getUploadedCount() {
         return files.size();
     }

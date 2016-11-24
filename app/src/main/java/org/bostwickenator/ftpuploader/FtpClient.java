@@ -14,7 +14,6 @@ public class FtpClient {
     FTPClient ftpClient = new FTPClient();
 
     public void connect(){
-
         SettingsStore settingsStore = SettingsStore.getSettingsStore();
         try {
             ftpClient.connect(settingsStore.getString(SettingsActivity.SETTING_SERVER,""), Integer.parseInt(settingsStore.getString(SettingsActivity.SETTING_PORT, "")));
@@ -27,7 +26,6 @@ public class FtpClient {
             Logger.error(e.toString());
         }
     }
-
 
     public void createAlbum(String name) throws IOException {
         ftpClient.makeDirectory(name);

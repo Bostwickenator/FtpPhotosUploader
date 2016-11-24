@@ -10,9 +10,8 @@ import java.io.FileWriter;
 import java.io.InputStreamReader;
 
 /**
- * Created by Alex on 2016-11-13.
+ * This class is a key value store with defaults, data is automatically persisted as JSON for debugging efficiency.
  */
-
 public class SettingsStore {
 
     private static SettingsStore theSettingsStore;

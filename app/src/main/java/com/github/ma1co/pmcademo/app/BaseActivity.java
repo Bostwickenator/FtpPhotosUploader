@@ -188,7 +188,6 @@ public class BaseActivity extends FragmentActivity implements DisplayManager.Lis
 
     @Override
     public void displayChanged(DisplayManager.Display display) {
-       // AppNotificationManager.getInstance().notify(NOTIFICATION_DISPLAY_CHANGED);
     }
 
     protected void setAutoPowerOffMode(boolean enable) {
@@ -207,9 +206,6 @@ public class BaseActivity extends FragmentActivity implements DisplayManager.Lis
         Intent intent = new Intent("com.android.server.DAConnectionManagerService.AppInfoReceive");
         intent.putExtra("package_name", getComponentName().getPackageName());
         intent.putExtra("class_name", getComponentName().getClassName());
-        //intent.putExtra("pkey", new String[] {});// either this or these two:
-        //intent.putExtra("pullingback_key", new String[] {});
-        //intent.putExtra("resume_key", new String[] {});
         sendBroadcast(intent);
     }
 

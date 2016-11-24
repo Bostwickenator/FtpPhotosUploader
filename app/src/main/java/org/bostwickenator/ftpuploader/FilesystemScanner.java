@@ -7,11 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FilesystemScanner {
-
-    public FilesystemScanner() {
-
-    }
-
     public static List<File> getImagesOnExternalStorage() {
         return getFilteredFileList(Environment.getExternalStorageDirectory(), ".jpg", ".arw");
     }
