@@ -50,8 +50,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="textVisiblePassword"
-                android:hint="@string/password" />
+                android:hint="@string/password"
+                android:inputType="textVisiblePassword" />
 
         </LinearLayout>
 
@@ -78,12 +78,12 @@
                 android:inputType="number" />
         </LinearLayout>
 
-
         <Button
             android:id="@+id/buttonClearUploadDatabase"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/clear_upload_database" />
     </LinearLayout>
+
 </ScrollView>
 

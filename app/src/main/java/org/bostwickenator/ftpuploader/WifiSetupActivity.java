@@ -35,7 +35,7 @@ public class WifiSetupActivity extends Activity {
         wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
         connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 
-        if(hasConnection()){ //Short circuit everything if we have some kind of upstream connection. Useful in emulators
+        if (hasConnection()) { //Short circuit everything if we have some kind of upstream connection. Useful in emulators
             startLoginActivity();
         } else {
 
@@ -71,7 +71,7 @@ public class WifiSetupActivity extends Activity {
     protected void onResume() {
         super.onResume();
 
-        if(hasConnection()){ //Short circuit everything if we have some kind of upstream connection.
+        if (hasConnection()) { //Short circuit everything if we have some kind of upstream connection.
             startLoginActivity();
         } else {
             IntentFilter f = new IntentFilter();
@@ -87,7 +87,7 @@ public class WifiSetupActivity extends Activity {
         super.onPause();
         try {
             unregisterReceiver(receiver);
-        } catch (Exception e){
+        } catch (Exception e) {
             // NO OP
         }
     }
@@ -120,10 +120,10 @@ public class WifiSetupActivity extends Activity {
                     case AUTHENTICATING:
                     case CONNECTING:
                     case OBTAINING_IPADDR:
-                        summary =  res.getString(R.string.connectionStateConnecting);
+                        summary = res.getString(R.string.connectionStateConnecting);
                         break;
                     default:
-                        res.getString(0,"test");
+                        res.getString(0, "test");
                         summary = res.getString(R.string.connectionStateWifiEnabled);
                 }
             }
@@ -134,10 +134,10 @@ public class WifiSetupActivity extends Activity {
     }
 
 
-    private void startLoginActivity(){
+    private void startLoginActivity() {
         try {
             unregisterReceiver(receiver);
-        } catch (Exception e){
+        } catch (Exception e) {
             // NO OP
         }
         this.startActivity(new Intent(this, MainActivity.class));

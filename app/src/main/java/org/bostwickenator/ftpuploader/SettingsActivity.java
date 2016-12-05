@@ -36,7 +36,7 @@ public class SettingsActivity extends BaseActivity {
         buttonClearDatabase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               UploadRecordDatabase.getInstance().clearDatabase();
+                UploadRecordDatabase.getInstance().clearDatabase();
             }
         });
 

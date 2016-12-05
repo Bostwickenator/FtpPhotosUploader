@@ -147,7 +147,7 @@ public class MainActivity extends BaseActivity {
 
                 String albumName = "FTP_Uploader_" + DateUtils.getDate();
 
-                ftp.createAlbum(albumName);
+                ftp.createAndUseAlbumForSubsequentOperations(albumName);
 
                 List<File> images = FilesystemScanner.getImagesOnExternalStorage();
                 uploadRecordDatabase.filterFileList(images);
@@ -173,9 +173,4 @@ public class MainActivity extends BaseActivity {
             return null;
         }
     }
-
-
-
-
-
 }

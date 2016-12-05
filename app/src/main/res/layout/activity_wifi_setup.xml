@@ -12,38 +12,38 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:padding="8dp"
+        android:layout_centerVertical="true"
         android:background="@color/boxBackground"
-        android:minWidth="200dp">
+        android:minWidth="200dp"
+        android:padding="8dp">
 
         <ProgressBar
+            android:id="@+id/progressBarWifi"
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:id="@+id/progressBarWifi"
-            android:indeterminate="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:indeterminate="true" />
 
         <TextView
+            android:id="@+id/textViewWifiState"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/wifiStateDefault"
-            android:id="@+id/textViewWifiState"
             android:layout_below="@+id/progressBarWifi"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            android:text="@string/wifiStateDefault"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
     </RelativeLayout>
 
     <Button
+        android:id="@+id/buttonWifiSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/buttonWifiSettings"
-        android:id="@+id/buttonWifiSettings"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:text="@string/buttonWifiSettings" />
 
 </RelativeLayout>

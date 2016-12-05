@@ -27,7 +27,7 @@ public class UploadRecordDatabase {
     }
 
     public static UploadRecordDatabase getInstance() {
-        if(theUploadRecordDatabase == null) {
+        if (theUploadRecordDatabase == null) {
             theUploadRecordDatabase = new UploadRecordDatabase();
         }
         return theUploadRecordDatabase;
@@ -36,6 +36,7 @@ public class UploadRecordDatabase {
 
     /**
      * Get the number of records in the database
+     *
      * @return the count of items
      */
     public int getUploadedCount() {
@@ -45,11 +46,10 @@ public class UploadRecordDatabase {
 
     private void loadFileList() {
         try {
-
             BufferedReader reader = new BufferedReader(new FileReader(FileGetter.getFile(FILE_NAME)));
 
             String fileName;
-            while((fileName = reader.readLine()) != null){
+            while ((fileName = reader.readLine()) != null) {
                 files.add(new File(fileName));
             }
             reader.close();
@@ -60,12 +60,12 @@ public class UploadRecordDatabase {
         }
     }
 
-    public void filterFileList(List<File> filesToFilter){
+    public void filterFileList(List<File> filesToFilter) {
         filesToFilter.removeAll(files);
     }
 
     public void addFile(File file) {
-        if(files.add(file)) {
+        if (files.add(file)) {
             try {
                 BufferedWriter writer = new BufferedWriter(new FileWriter(FileGetter.getFile(FILE_NAME), true));
                 writer.append(file.getAbsolutePath());
@@ -80,7 +80,7 @@ public class UploadRecordDatabase {
 
     public void clearDatabase() {
         files.clear();
-        if(!FileGetter.getFile(FILE_NAME).delete()) {
+        if (!FileGetter.getFile(FILE_NAME).delete()) {
             Logger.error("Could not delete database");
         }
     }

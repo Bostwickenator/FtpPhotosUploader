@@ -12,13 +12,15 @@ import java.io.IOException;
 class FtpClient {
 
     private final FTPClient ftpClient = new FTPClient();
+    private final static String EMPTY_STRING = "";
+    SettingsStore settingsStore = SettingsStore.getSettingsStore();
 
-    public void connect(){
-        SettingsStore settingsStore = SettingsStore.getSettingsStore();
+    public void connect() {
+
         try {
-            ftpClient.connect(settingsStore.getString(SettingsActivity.SETTING_SERVER,""), Integer.parseInt(settingsStore.getString(SettingsActivity.SETTING_PORT, "")));
-            ftpClient.login(settingsStore.getString(SettingsActivity.SETTING_USERNAME, ""), settingsStore.getString(SettingsActivity.SETTING_PASSWORD, ""));
-            if(settingsStore.getBoolean(SettingsActivity.SETTING_PASSIVE, false)){
+            ftpClient.connect(getStringWithEmptyAsDefault(SettingsActivity.SETTING_SERVER), Integer.parseInt(getStringWithEmptyAsDefault(SettingsActivity.SETTING_PORT)));
+            ftpClient.login(getStringWithEmptyAsDefault(SettingsActivity.SETTING_USERNAME), getStringWithEmptyAsDefault(SettingsActivity.SETTING_PASSWORD));
+            if (settingsStore.getBoolean(SettingsActivity.SETTING_PASSIVE, false)) {
                 ftpClient.enterLocalPassiveMode();
             }
             ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
@@ -26,8 +28,12 @@ class FtpClient {
             Logger.error(e.toString());
         }
     }
+    
+    private String getStringWithEmptyAsDefault(String key) {
+        return settingsStore.getString(key, EMPTY_STRING);
+    }
 
-    public void createAlbum(String name) throws IOException {
+    public void createAndUseAlbumForSubsequentOperations(String name) throws IOException {
         ftpClient.makeDirectory(name);
         ftpClient.changeWorkingDirectory(name);
     }

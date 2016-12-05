@@ -1,7 +1,9 @@
 package org.bostwickenator.ftpuploader;
 
 import com.github.ma1co.pmcademo.app.Logger;
+
 import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -20,14 +22,14 @@ public class SettingsStore {
     private JSONObject settings;
     private final File settingsFile = FileGetter.getFile("SET.JSN");
 
-    public static SettingsStore getSettingsStore(){
-        if(theSettingsStore == null) {
+    public static SettingsStore getSettingsStore() {
+        if (theSettingsStore == null) {
             theSettingsStore = new SettingsStore();
         }
         return theSettingsStore;
     }
 
-    private SettingsStore(){
+    private SettingsStore() {
         loadFile();
     }
 
@@ -78,7 +80,7 @@ public class SettingsStore {
         }
     }
 
-    private void loadFile()  {
+    private void loadFile() {
         try {
             FileInputStream fis = new FileInputStream(settingsFile);
             BufferedReader streamReader = new BufferedReader(new InputStreamReader(fis, "UTF-8"));

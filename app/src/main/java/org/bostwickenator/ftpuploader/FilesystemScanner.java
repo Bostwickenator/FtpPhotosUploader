@@ -18,17 +18,17 @@ class FilesystemScanner {
     private static List<File> getFilteredFileList(File directory, String... extensions) {
         File[] subFiles = directory.listFiles();
         List<File> filtered = new ArrayList<>();
-        if(subFiles != null){
-            for (File f: subFiles) {
+        if (subFiles != null) {
+            for (File f : subFiles) {
                 String filename = f.getName().toLowerCase();
-                if(f.isFile()){
-                    for (String extension: extensions) {
-                        if(filename.endsWith(extension)){
+                if (f.isFile()) {
+                    for (String extension : extensions) {
+                        if (filename.endsWith(extension)) {
                             filtered.add(f);
                             break;
                         }
                     }
-                } else if (f.isDirectory()){
+                } else if (f.isDirectory()) {
                     filtered.addAll(getFilteredFileList(f, extensions));
                 }
             }
