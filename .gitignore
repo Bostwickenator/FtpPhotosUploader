@@ -47,3 +47,4 @@ app/build/*
 build/*
 local.properties
 .idea/workspace.xml
+.idea/workspace.xml

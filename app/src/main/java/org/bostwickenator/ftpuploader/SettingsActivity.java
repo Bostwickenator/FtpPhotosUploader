@@ -21,8 +21,8 @@ public class SettingsActivity extends BaseActivity {
     public static final String SETTING_PORT = "port";
     public static final String SETTING_PASSIVE = "passive";
 
-    SettingsStore mSharedPreferences;
-    EditText username, password, server, port;
+    private SettingsStore mSharedPreferences;
+    //EditText username, password, server, port;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +44,13 @@ public class SettingsActivity extends BaseActivity {
         setupCheckbox(R.id.checkBoxUploadVideos, SETTING_UPLOAD_VIDEOS);
         setupCheckbox(R.id.checkBoxPassive, SETTING_PASSIVE);
 
-        username = setupEditText(R.id.editTextUsername, SETTING_USERNAME);
-        password = setupEditText(R.id.editTextPassword, SETTING_PASSWORD);
-        server = setupEditText(R.id.editTextServer, SETTING_SERVER);
-        port = setupEditText(R.id.editTextPort, SETTING_PORT);
+        setupEditText(R.id.editTextUsername, SETTING_USERNAME);
+        setupEditText(R.id.editTextPassword, SETTING_PASSWORD);
+        setupEditText(R.id.editTextServer, SETTING_SERVER);
+        setupEditText(R.id.editTextPort, SETTING_PORT);
     }
 
-    private CheckBox setupCheckbox(int id, final String setting) {
+    private void setupCheckbox(int id, final String setting) {
         CheckBox checkBox = (CheckBox) findViewById(id);
         checkBox.setChecked(mSharedPreferences.getBoolean(setting, false));
 
@@ -60,14 +60,12 @@ public class SettingsActivity extends BaseActivity {
                 mSharedPreferences.putBoolean(setting, isChecked);
             }
         });
-        return checkBox;
     }
 
-    private EditText setupEditText(int id, String setting) {
+    private void setupEditText(int id, String setting) {
         EditText editText = (EditText) findViewById(id);
         editText.setText(mSharedPreferences.getString(setting, ""));
         editText.addTextChangedListener(getTextWatcher(setting));
-        return editText;
     }
 
     private TextWatcher getTextWatcher(final String setting) {

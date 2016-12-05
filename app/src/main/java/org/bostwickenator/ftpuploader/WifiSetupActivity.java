@@ -18,11 +18,13 @@ import com.github.ma1co.pmcademo.app.Logger;
 
 public class WifiSetupActivity extends Activity {
 
-    ConnectivityManager connectivityManager;
-    WifiManager wifiManager;
-    TextView textViewWifiState;
-    BroadcastReceiver receiver;
-    Resources res;
+    private ConnectivityManager connectivityManager;
+    private WifiManager wifiManager;
+    private TextView textViewWifiState;
+    private BroadcastReceiver receiver;
+    private Resources res;
+
+    private static final String WIFI_URI = "com.sony.scalar.app.wifisettings.WifiSettings";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +56,13 @@ public class WifiSetupActivity extends Activity {
                     Logger.info("starting wifi settings activity");
                     boolean wifiEnabled = isWifiEnabled();
                     setWifiEnabled(true);
-                    startActivityForResult(new Intent("com.sony.scalar.app.wifisettings.WifiSettings"), wifiEnabled ? 1 : 0);
+                    startActivityForResult(new Intent(WIFI_URI), wifiEnabled ? 1 : 0);
                 }
             });
         }
     }
 
-    protected boolean hasConnection() {
+    private boolean hasConnection() {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
@@ -86,25 +88,25 @@ public class WifiSetupActivity extends Activity {
         try {
             unregisterReceiver(receiver);
         } catch (Exception e){
-            // noop
+            // NO OP
         }
     }
 
-    public void setWifiEnabled(boolean enabled) {
+    private void setWifiEnabled(boolean enabled) {
         Logger.info("setting wifi enabled state to " + enabled);
         wifiManager.setWifiEnabled(enabled);
     }
 
-    public boolean isWifiEnabled() {
+    private boolean isWifiEnabled() {
         int state = wifiManager.getWifiState();
         return state == WifiManager.WIFI_STATE_ENABLING || state == WifiManager.WIFI_STATE_ENABLED;
     }
 
-    protected void updateWifiSwitch() {
+    private void updateWifiSwitch() {
         boolean wifiEnabled = isWifiEnabled();
         String summary;
         if (wifiEnabled) {
-            NetworkInfo networkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+            @SuppressWarnings("deprecation") NetworkInfo networkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
             WifiInfo wifiInfo = wifiManager.getConnectionInfo();
             if (networkInfo.isConnected()) {
                 summary = res.getString(R.string.connectionStateConnectedTo) + " " + wifiInfo.getSSID();
@@ -136,7 +138,7 @@ public class WifiSetupActivity extends Activity {
         try {
             unregisterReceiver(receiver);
         } catch (Exception e){
-            // noop
+            // NO OP
         }
         this.startActivity(new Intent(this, MainActivity.class));
         finish();

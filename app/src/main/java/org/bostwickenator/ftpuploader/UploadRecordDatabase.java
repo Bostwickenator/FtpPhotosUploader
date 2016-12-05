@@ -1,5 +1,7 @@
 package org.bostwickenator.ftpuploader;
 
+import com.github.ma1co.pmcademo.app.Logger;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -15,10 +17,10 @@ import java.util.Set;
  */
 public class UploadRecordDatabase {
 
-    Set<File> files = new HashSet<>();
+    private final Set<File> files = new HashSet<>();
 
     private static UploadRecordDatabase theUploadRecordDatabase;
-    private static String FILE_NAME = "DB.TXT";
+    private static final String FILE_NAME = "DB.TXT";
 
     private UploadRecordDatabase() {
         loadFileList();
@@ -34,14 +36,14 @@ public class UploadRecordDatabase {
 
     /**
      * Get the number of records in the database
-     * @return
+     * @return the count of items
      */
     public int getUploadedCount() {
         return files.size();
     }
 
 
-    protected void loadFileList() {
+    private void loadFileList() {
         try {
 
             BufferedReader reader = new BufferedReader(new FileReader(FileGetter.getFile(FILE_NAME)));
@@ -52,14 +54,17 @@ public class UploadRecordDatabase {
             }
             reader.close();
 
-        } catch (IOException e) {}
+        } catch (IOException e) {
+            Logger.error("Could not loadFileList");
+            Logger.error(e.toString());
+        }
     }
 
     public void filterFileList(List<File> filesToFilter){
         filesToFilter.removeAll(files);
     }
 
-    protected void addFile(File file) {
+    public void addFile(File file) {
         if(files.add(file)) {
             try {
                 BufferedWriter writer = new BufferedWriter(new FileWriter(FileGetter.getFile(FILE_NAME), true));
@@ -67,12 +72,16 @@ public class UploadRecordDatabase {
                 writer.newLine();
                 writer.close();
             } catch (IOException e) {
+                Logger.error("Could not addFile to upload record database");
+                Logger.error(e.toString());
             }
         }
     }
 
     public void clearDatabase() {
         files.clear();
-        FileGetter.getFile(FILE_NAME).delete();
+        if(!FileGetter.getFile(FILE_NAME).delete()) {
+            Logger.error("Could not delete database");
+        }
     }
 }

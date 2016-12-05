@@ -12,7 +12,9 @@ public class Logger {
             writer.append(msg);
             writer.newLine();
             writer.close();
-        } catch (IOException e) {}
+        } catch (IOException e) {
+            // NO OP
+        }
     }
     protected static void log(String type, String msg) { log("[" + type + "] " + msg); }
 

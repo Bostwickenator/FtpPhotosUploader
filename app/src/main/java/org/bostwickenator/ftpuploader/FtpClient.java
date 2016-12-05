@@ -9,9 +9,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-public class FtpClient {
+class FtpClient {
 
-    FTPClient ftpClient = new FTPClient();
+    private final FTPClient ftpClient = new FTPClient();
 
     public void connect(){
         SettingsStore settingsStore = SettingsStore.getSettingsStore();

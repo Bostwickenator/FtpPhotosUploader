@@ -1,7 +1,6 @@
 package org.bostwickenator.ftpuploader;
 
 import android.content.Intent;
-import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -16,16 +15,18 @@ import com.github.ma1co.pmcademo.app.BaseActivity;
 import com.github.ma1co.pmcademo.app.Logger;
 
 public class MainActivity extends BaseActivity {
+    private static final int NOT_INITIALIZED = -1;
 
-    ProgressBar progressBarUploadProgress;
+    private ProgressBar progressBarUploadProgress;
+    private TextView textViewPhotosToUploadCount, textViewUploadedCount, textViewUploadStatus;
+    private View buttonUploadPhotos, buttonSettings;
+    private View progressBarSpin;
 
-    TextView textViewPhotosToUploadCount, textViewUploadedCount, textViewUploadStatus;
+    private final UploadRecordDatabase uploadRecordDatabase = UploadRecordDatabase.getInstance();
 
-    View buttonUploadPhotos, buttonSettings;
+    private UploadTask mUploadTask;
 
-    View progressBarSpin;
-
-    UploadRecordDatabase uploadRecordDatabase = UploadRecordDatabase.getInstance();
+    private int toUploadCount = NOT_INITIALIZED;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,15 +61,10 @@ public class MainActivity extends BaseActivity {
         textViewUploadStatus = (TextView) findViewById(R.id.textViewUploadStatus);
     }
 
-    UploadTask mUploadTask;
-    public static final int NOT_INITED = -1;
-
-    int toUploadCount = NOT_INITED;
-
     @Override
     protected void onResume() {
         super.onResume();
-        toUploadCount = NOT_INITED;
+        toUploadCount = NOT_INITIALIZED;
         updateNumberOfPhotos();
     }
 
@@ -82,7 +78,7 @@ public class MainActivity extends BaseActivity {
 
     private void updateNumberOfPhotos() {
 
-        if(toUploadCount == NOT_INITED ) {
+        if(toUploadCount == NOT_INITIALIZED) {
             List<File> files = FilesystemScanner.getImagesOnExternalStorage();
 
 

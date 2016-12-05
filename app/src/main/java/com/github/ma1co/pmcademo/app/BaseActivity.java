@@ -9,7 +9,8 @@ import com.github.ma1co.openmemories.framework.DisplayManager;
 import com.sony.scalar.sysutil.ScalarInput;
 
 
-public class BaseActivity extends FragmentActivity implements DisplayManager.Listener {
+@SuppressWarnings("ALL")
+public abstract class BaseActivity extends FragmentActivity implements DisplayManager.Listener {
     public static final String NOTIFICATION_DISPLAY_CHANGED = "NOTIFICATION_DISPLAY_CHANGED";
 
     private DisplayManager displayManager;

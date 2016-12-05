@@ -2,6 +2,8 @@ package org.bostwickenator.ftpuploader;
 
 import android.os.Environment;
 
+import com.github.ma1co.pmcademo.app.Logger;
+
 import java.io.File;
 
 public class FileGetter {
@@ -11,7 +13,7 @@ public class FileGetter {
      * @param name the name of the file
      * @return the file handle
      */
-    public static File getFile(String name){
+    public static File getFile(String name) {
         File ret = new File(Environment.getExternalStorageDirectory(), "PRIVATE/FTP/" + name);
         ret.getParentFile().mkdirs();
         return ret;

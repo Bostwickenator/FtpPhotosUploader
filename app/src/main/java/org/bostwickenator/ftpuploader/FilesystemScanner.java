@@ -6,7 +6,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FilesystemScanner {
+class FilesystemScanner {
     public static List<File> getImagesOnExternalStorage() {
         return getFilteredFileList(Environment.getExternalStorageDirectory(), ".jpg", ".arw");
     }
@@ -15,7 +15,7 @@ public class FilesystemScanner {
         return getFilteredFileList(Environment.getExternalStorageDirectory(), ".mts", ".mp4");
     }
 
-    public static List<File> getFilteredFileList(File directory, String... extensions) {
+    private static List<File> getFilteredFileList(File directory, String... extensions) {
         File[] subFiles = directory.listFiles();
         List<File> filtered = new ArrayList<>();
         if(subFiles != null){

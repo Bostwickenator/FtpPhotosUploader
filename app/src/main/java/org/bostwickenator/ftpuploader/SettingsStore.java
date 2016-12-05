@@ -12,12 +12,13 @@ import java.io.InputStreamReader;
 /**
  * This class is a key value store with defaults, data is automatically persisted as JSON for debugging efficiency.
  */
+@SuppressWarnings("SameParameterValue")
 public class SettingsStore {
 
     private static SettingsStore theSettingsStore;
 
-    JSONObject settings;
-    File settingsFile = FileGetter.getFile("SET.JSN");
+    private JSONObject settings;
+    private final File settingsFile = FileGetter.getFile("SET.JSN");
 
     public static SettingsStore getSettingsStore(){
         if(theSettingsStore == null) {
