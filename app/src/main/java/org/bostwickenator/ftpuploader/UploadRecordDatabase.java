@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * A simple store to record file lists in. Deals with persistence internally.
+ * A simple store to record file lists in. Deals with persistence internally. This class is a singleton.
  */
 public class UploadRecordDatabase {
 
@@ -44,6 +44,9 @@ public class UploadRecordDatabase {
     }
 
 
+    /**
+     * Loads the file list from storage and into the backing set for quick access
+     */
     private void loadFileList() {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(FileGetter.getFile(FILE_NAME)));
@@ -60,10 +63,18 @@ public class UploadRecordDatabase {
         }
     }
 
+    /**
+     * Removes all the files from the supplied list that are currently stored in the database.
+     * @param filesToFilter the list to mutate
+     */
     public void filterFileList(List<File> filesToFilter) {
         filesToFilter.removeAll(files);
     }
 
+    /**
+     * Add a file to the database and persist it. Files are tested for equality by path.
+     * @param file
+     */
     public void addFile(File file) {
         if (files.add(file)) {
             try {
@@ -78,6 +89,9 @@ public class UploadRecordDatabase {
         }
     }
 
+    /**
+     * Delete all the records in the database
+     */
     public void clearDatabase() {
         files.clear();
         if (!FileGetter.getFile(FILE_NAME).delete()) {

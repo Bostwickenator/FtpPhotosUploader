@@ -12,7 +12,7 @@ public class Logger {
             writer.append(msg);
             writer.newLine();
             writer.close();
-        } catch (IOException e) {
+        } catch (Exception e) {
             // NO OP
         }
     }
