@@ -79,17 +79,8 @@ public class MainActivity extends BaseActivity {
     private void updateNumberOfPhotos() {
 
         if(toUploadCount == NOT_INITIALIZED) {
-            List<File> files = FilesystemScanner.getImagesOnExternalStorage();
-
-
-            if(SettingsStore.getSettingsStore().getBoolean(SettingsActivity.SETTING_UPLOAD_VIDEOS, false)) {
-                List<File> videos = FilesystemScanner.getVideosOnExternalStorage();
-                files.addAll(videos);
-            }
-
-            uploadRecordDatabase.filterFileList(files);
+            List<File> files = getFilesToUpload();
             toUploadCount = files.size();
-
         }
         textViewPhotosToUploadCount.setText("" + toUploadCount);
         textViewUploadedCount.setText("" + uploadRecordDatabase.getUploadedCount());
@@ -98,7 +89,7 @@ public class MainActivity extends BaseActivity {
 
     class UploadTask extends AsyncTask<Void, Integer, Void> {
 
-        int totalImages;
+        int totalFiles;
 
         @Override
         protected void onPreExecute() {
@@ -123,8 +114,8 @@ public class MainActivity extends BaseActivity {
         @Override
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
-            if(progressBarUploadProgress.getMax() != totalImages -1) {
-                progressBarUploadProgress.setMax(totalImages -1);
+            if(progressBarUploadProgress.getMax() != totalFiles -1) {
+                progressBarUploadProgress.setMax(totalFiles -1);
             }
             progressBarUploadProgress.setProgress(values[0]);
             toUploadCount--;
@@ -149,12 +140,11 @@ public class MainActivity extends BaseActivity {
 
                 ftp.createAndUseAlbumForSubsequentOperations(albumName);
 
-                List<File> images = FilesystemScanner.getImagesOnExternalStorage();
-                uploadRecordDatabase.filterFileList(images);
+                List<File> files = getFilesToUpload();
 
-                totalImages = images.size();
-                for( int i = 0 ; i < totalImages ; i++) {
-                    File file = images.get(i);
+                totalFiles = files.size();
+                for(int i = 0; i < totalFiles; i++) {
+                    File file = files.get(i);
 
                     boolean result = ftp.storeFile(file);
                     if(result) {
@@ -172,5 +162,18 @@ public class MainActivity extends BaseActivity {
             }
             return null;
         }
+    }
+
+    private List<File> getFilesToUpload(){
+        List<File> files = FilesystemScanner.getImagesOnExternalStorage();
+
+        if(SettingsStore.getSettingsStore().getBoolean(SettingsActivity.SETTING_UPLOAD_VIDEOS, false)) {
+            List<File> videos = FilesystemScanner.getVideosOnExternalStorage();
+            files.addAll(videos);
+        }
+
+        uploadRecordDatabase.filterFileList(files);
+
+        return files;
     }
 }
