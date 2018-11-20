@@ -15,12 +15,14 @@
     <string name="connectionStateConnectedTo">Connected To</string>
     <string name="connectionStateWifiScanning">Scanning</string>
     <string name="upload_videos">Upload videos</string>
-    <string name="delete_files_after_upload">Delete files after upload</string>
+    <string name="delete_files_after_upload">Delete files after upload (Must manually "Recover Image DB" afterward)</string>
+    <string name="create_album">Create unique directory for every upload</string>
     <string name="ftp_passive_mode">FTP passive mode</string>
     <string name="username">username</string>
     <string name="password">password</string>
     <string name="server">server</string>
     <string name="port">port</string>
+    <string name="targetDir">/target/dir</string>
     <string name="clear_upload_database">Clear Upload Database</string>
     <string name="start_upload">Start Upload</string>
     <string name="settings">Settings</string>

@@ -14,6 +14,12 @@ import java.util.List;
 import com.github.ma1co.pmcademo.app.BaseActivity;
 import com.github.ma1co.pmcademo.app.Logger;
 
+import static org.bostwickenator.ftpuploader.DateUtils.getDate;
+import static org.bostwickenator.ftpuploader.SettingsActivity.SETTING_CREATE_ALBUM;
+import static org.bostwickenator.ftpuploader.SettingsActivity.SETTING_DELETE_AFTER_UPLOAD;
+import static org.bostwickenator.ftpuploader.SettingsActivity.SETTING_UPLOAD_VIDEOS;
+import static org.bostwickenator.ftpuploader.SettingsStore.settingsStore;
+
 public class MainActivity extends BaseActivity {
     private static final int NOT_INITIALIZED = -1;
 
@@ -136,9 +142,10 @@ public class MainActivity extends BaseActivity {
                     }
                 });
 
-                String albumName = "FTP_Uploader_" + DateUtils.getDate();
-
-                ftp.createAndUseAlbumForSubsequentOperations(albumName);
+                if (settingsStore().getBoolean(SETTING_CREATE_ALBUM, true)) {
+                    String albumName = "FTP_Uploader_" + getDate();
+                    ftp.createAndUseAlbumForSubsequentOperations(albumName);
+                }
 
                 List<File> files = getFilesToUpload();
 
@@ -149,6 +156,11 @@ public class MainActivity extends BaseActivity {
                     boolean result = ftp.storeFile(file);
                     if(result) {
                         uploadRecordDatabase.addFile(file);
+                        if (settingsStore().getBoolean(SETTING_DELETE_AFTER_UPLOAD, false)) {
+                            if (!file.delete()) {
+                                Logger.error("failed deleting file");
+                            }
+                        }
                     }
                     publishProgress(i);
                     if(this.isCancelled()) {
@@ -167,7 +179,7 @@ public class MainActivity extends BaseActivity {
     private List<File> getFilesToUpload(){
         List<File> files = FilesystemScanner.getImagesOnExternalStorage();
 
-        if(SettingsStore.getSettingsStore().getBoolean(SettingsActivity.SETTING_UPLOAD_VIDEOS, false)) {
+        if(settingsStore().getBoolean(SETTING_UPLOAD_VIDEOS, false)) {
             List<File> videos = FilesystemScanner.getVideosOnExternalStorage();
             files.addAll(videos);
         }

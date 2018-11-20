@@ -22,7 +22,7 @@ public class SettingsStore {
     private JSONObject settings;
     private final File settingsFile = FileGetter.getFile("SET.JSN");
 
-    public static SettingsStore getSettingsStore() {
+    public static SettingsStore settingsStore() {
         if (theSettingsStore == null) {
             theSettingsStore = new SettingsStore();
         }

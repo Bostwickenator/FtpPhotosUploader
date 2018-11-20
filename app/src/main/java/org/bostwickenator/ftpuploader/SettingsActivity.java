@@ -10,24 +10,29 @@ import android.widget.EditText;
 
 import com.github.ma1co.pmcademo.app.BaseActivity;
 
+import static org.bostwickenator.ftpuploader.SettingsStore.settingsStore;
+
 public class SettingsActivity extends BaseActivity {
 
     public static final String SETTING_UPLOAD_VIDEOS = "upload_videos";
     public static final String SETTING_DELETE_AFTER_UPLOAD = "delete_after_upload";
+    public static final String SETTING_CREATE_ALBUM = "create_album";
 
     public static final String SETTING_USERNAME = "username";
     public static final String SETTING_PASSWORD = "password";
     public static final String SETTING_SERVER = "server";
     public static final String SETTING_PORT = "port";
-    public static final String SETTING_PASSIVE = "passive";
 
-    private SettingsStore mSharedPreferences;
+    public static final String SETTING_PASSIVE = "passive";
+    public static final String SETTING_TARGET_DIR = "target_dir";
+
+    private SettingsStore settingsStore;
     //EditText username, password, server, port;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mSharedPreferences = SettingsStore.getSettingsStore();
+        this.settingsStore = settingsStore();
         setContentView(R.layout.activity_settings);
 
 
@@ -43,28 +48,30 @@ public class SettingsActivity extends BaseActivity {
         setupCheckbox(R.id.checkBoxDeleteAfterUpload, SETTING_DELETE_AFTER_UPLOAD);
         setupCheckbox(R.id.checkBoxUploadVideos, SETTING_UPLOAD_VIDEOS);
         setupCheckbox(R.id.checkBoxPassive, SETTING_PASSIVE);
+        setupCheckbox(R.id.checkBoxCreateAlbum, SETTING_CREATE_ALBUM);
 
         setupEditText(R.id.editTextUsername, SETTING_USERNAME);
         setupEditText(R.id.editTextPassword, SETTING_PASSWORD);
         setupEditText(R.id.editTextServer, SETTING_SERVER);
         setupEditText(R.id.editTextPort, SETTING_PORT);
+        setupEditText(R.id.editTextTargetDir, SETTING_TARGET_DIR);
     }
 
     private void setupCheckbox(int id, final String setting) {
         CheckBox checkBox = (CheckBox) findViewById(id);
-        checkBox.setChecked(mSharedPreferences.getBoolean(setting, false));
+        checkBox.setChecked(this.settingsStore.getBoolean(setting, false));
 
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mSharedPreferences.putBoolean(setting, isChecked);
+                settingsStore.putBoolean(setting, isChecked);
             }
         });
     }
 
     private void setupEditText(int id, String setting) {
         EditText editText = (EditText) findViewById(id);
-        editText.setText(mSharedPreferences.getString(setting, ""));
+        editText.setText(this.settingsStore.getString(setting, ""));
         editText.addTextChangedListener(getTextWatcher(setting));
     }
 
@@ -80,7 +87,7 @@ public class SettingsActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                mSharedPreferences.putString(setting, s.toString());
+                settingsStore.putString(setting, s.toString());
             }
         };
     }
