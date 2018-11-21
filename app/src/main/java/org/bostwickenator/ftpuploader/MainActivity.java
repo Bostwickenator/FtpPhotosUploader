@@ -14,6 +14,7 @@ import java.util.List;
 import com.github.ma1co.pmcademo.app.BaseActivity;
 import com.github.ma1co.pmcademo.app.Logger;
 
+import static java.lang.String.format;
 import static org.bostwickenator.ftpuploader.DateUtils.getDate;
 import static org.bostwickenator.ftpuploader.SettingsActivity.SETTING_CREATE_ALBUM;
 import static org.bostwickenator.ftpuploader.SettingsActivity.SETTING_DELETE_AFTER_UPLOAD;
@@ -153,14 +154,16 @@ public class MainActivity extends BaseActivity {
                 for(int i = 0; i < totalFiles; i++) {
                     File file = files.get(i);
 
-                    boolean result = ftp.storeFile(file);
-                    if(result) {
+                    boolean uploadSucceeded = ftp.storeFile(file);
+                    if(uploadSucceeded) {
                         uploadRecordDatabase.addFile(file);
                         if (settingsStore().getBoolean(SETTING_DELETE_AFTER_UPLOAD, false)) {
                             if (!file.delete()) {
-                                Logger.error("failed deleting file");
+                                Logger.error(format("failed deleting file: %s", file.getAbsolutePath()));
                             }
                         }
+                    } else {
+                        Logger.error(format("failed uploading file: %s", file.getAbsolutePath()));
                     }
                     publishProgress(i);
                     if(this.isCancelled()) {
