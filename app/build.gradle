@@ -2,14 +2,14 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "25.0.1"
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         applicationId "org.bostwickenator.googlephotos"
         minSdkVersion 10
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
         multiDexEnabled false
     }
     buildTypes {
@@ -22,14 +22,14 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
     //noinspection GradleDependency
-    compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'com.github.ma1co.OpenMemories-Framework:framework:-SNAPSHOT'
+    implementation 'com.android.support:appcompat-v7:23.3.0'
+    implementation 'com.github.ma1co.OpenMemories-Framework:framework:-SNAPSHOT'
     // If you need direct access to the Sony APIs, you can add this line, too:
-    provided 'com.github.ma1co.OpenMemories-Framework:stubs:-SNAPSHOT'
-    compile 'commons-net:commons-net:3.4'
+    compileOnly 'com.github.ma1co.OpenMemories-Framework:stubs:-SNAPSHOT'
+    implementation 'commons-net:commons-net:3.4'
 }
 repositories {
     jcenter()
