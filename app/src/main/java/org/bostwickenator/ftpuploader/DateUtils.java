@@ -2,6 +2,7 @@ package org.bostwickenator.ftpuploader;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Calendar;
 import java.util.Locale;
 
 class DateUtils {
@@ -12,7 +13,7 @@ class DateUtils {
      * @return the date string
      */
     public static String getDate() {
-        SimpleDateFormat format = new SimpleDateFormat("yyy_MM_dd", Locale.US);
-        return format.format(new Date());
+        Calendar calendar = getDateTime().getCurrentTime(); 
+        return new SimpleDateFormat("yyyy_MM_dd").format(calendar.getTime());
     }
 }
